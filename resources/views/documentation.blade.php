@@ -22,14 +22,12 @@
             height: auto;
         }
 
+        rapi-doc {
+            width: 100%;
+        }
+
     </style>
 
-    <script>
-        window.onload = function () {
-            document.body.scrollTop = document.documentElement.scrollTop = 0;
-        };
-
-    </script>
 
 </head>
 
@@ -39,11 +37,11 @@
         allow-server-selection="false">
         <span class="m-markdown regular-font" slot="overview">
 
-            <h1 >Grainvision API Documentation</h1>
+            <h1>Documentation</h1>
             <hr>
             <p>This is the documentation page for Grainvision Web. Created to provide a better understanding of
-                how to use this app, and build a better overall user experience. It contains all relevant
-                paths and operations with important data about them, including their parameters, responses, and
+                how to use this app and build a better overall user experience. It contains all relevant
+                paths and operations with important data, including their parameters, responses, and
                 possible errors. </p>
 
             <p>The aim is to present all this information in an easily understandable manner, so little base knowledge
@@ -51,7 +49,7 @@
 
             <br>
 
-            <div id="tags">
+            <section id="tags">
                 <h2>Tags</h2>
                 <hr>
                 <ul>
@@ -60,36 +58,40 @@
                     <li><a href="#tag--Facilities">Facilities</a></li>
                     <li><a href="#tag--Settings">Settings</a></li>
                 </ul>
-            </div>
+            </section>
 
 
             <br>
 
-            <section>
+            <section id="getting-started">
                 <h2 class="sub-title">Getting started.</h2>
                 <hr>
                 <p>The first step is logging into the app. For this, you will need a valid email and password that you
                     will use to get authenticated, once you do that you will see the first page; a Dashboard with an
                     overview of your facilities.</p>
                 <p>On the top right of the page you can see your profile and language settings, and on the top left
-                    there's a
-                    dropdown menu with some possible operations.</p>
+                    there's a dropdown menu with some possible operations.</p>
 
                 <img src="{{ asset('images/grainvision_dashboard.png') }}" alt="grainvision_dashboard">
 
                 <h3>Accessing a facility.</h3>
                 <p>Accessing a facility to see its data is the most important characteristic of
-                    grainvision web. Using the UI from the dashboard, there's two ways to do this.
+                    grainvision web. Using the UI from the dashboard, there are two ways to do this.
                 </p>
 
-                <p>The first one is clicking on the "Go to facility" link on the dashboard for any of the facilities
-                    shown there.</p>
+                <p>The first one is clicking on the "Go to facility" link on any of the facilities
+                    shown on the dashboard.</p>
                 <p>The second one is opening the dropdown menu on the left and clicking on "My facilities", which will
-                    take you to a list of all facilites, then clicking on "View" for any of them.</p>
-                <p>Both these options will take you to the same page, which is an overview of the chosen facility, that
+                    take you to a list of facilites, then clicking on the "View" link on any of them.</p>
+                <p>Both these options will take you to the <a href="#get-/api/facilities/-proyecto-">same page</a>,
+                    which is an overview of the chosen facility that
                     contains a graph with a history of information about its sensors and their status.
                 </p>
-
+                <p>From here, if you click on the "View Facility" button on the bottom-right part of the page, it
+                    will take you to a detailed <a href="#get-/api/facilities/-proyecto-/representation">physical
+                        representation of the facility</a>, with hour to hour information about all the sensors.
+                </p>
+                <img src="{{ asset('images/grainvision_facility.png') }}" alt="grainvision_dashboard">
 
             </section>
 
@@ -101,7 +103,6 @@
 
 
         </a>
-        <h2 slot="nav-logo">Documentation</h2>
 
 
     </rapi-doc>

@@ -7,6 +7,8 @@ info:
 
 
 
+
+
   contact:
     name: IEA
     email: a@j.com
@@ -161,7 +163,10 @@ paths:
                       - name: administration.facilities.update
                       - name: administration.facilities.delete
               example: ''
-          description: Succesful operation
+          description: Successful operation
+        '400':
+          description: Bad Request.
+          x-last-modified: 1638880604751
       operationId: getRolesAndPermissions
       summary: Get roles and permissions
       description: Get a list of all roles and permissions
@@ -199,6 +204,9 @@ paths:
                       updated_at: '2021-11-03 10:23:00'
               example: ''
           description: Succesful operation.
+        '400':
+          description: Bad Request
+          x-last-modified: 1638880431161
       operationId: getFacilities
       summary: Get facilities.
       description: Get a list with all the facilities for a user.
@@ -216,6 +224,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Facility'
           description: Succesful operation.
+        '400':
+          description: Bad Request.
+          x-last-modified: 1638880551092
       operationId: getFacility
       summary: Get facility.
       description: Get a specific facility.
@@ -735,7 +746,6 @@ paths:
                     email:
                       minLength: 1
                       type: string
-                    email_verified_at: {}
                     created_at:
                       minLength: 1
                       type: string
@@ -758,7 +768,6 @@ paths:
                             type: string
                           permissions:
                             type: array
-                            items: {}
                     permissions:
                       minItems: 1
                       uniqueItems: true
@@ -770,6 +779,10 @@ paths:
                           name:
                             minLength: 1
                             type: string
+                externalDocs:
+                  description: ''
+                  url: ''
+                example: ''
                 x-examples:
                   example-1:
                     - id: 1
@@ -808,7 +821,11 @@ paths:
                         - name: administration.facilities.edit
                         - name: administration.facilities.update
                         - name: administration.facilities.delete
-          description: OK
+              example: ''
+          description: Successful Operation.
+        '400':
+          description: Bad Request.
+          x-last-modified: 1638880646964
       operationId: get-api-administration-users
       summary: Get all users.
       description: Get an array with all the users.
@@ -817,20 +834,44 @@ paths:
     summary: Manage a particular user.
     description: Get information, update, or delete a particular user provided in the path.
     get:
+      requestBody:
+        required: false
       tags:
         - Administration
+      responses:
+        '200':
+          description: Successful Operation.
+          x-last-modified: 1638881039266
+        '400':
+          description: Bad Request.
+          x-last-modified: 1638881052925
       operationId: get-user-admin
       summary: Get information about a user.
     put:
+      requestBody:
+        required: false
       tags:
         - Administration
       operationId: update-user-admin
       summary: Update information of a user.
     delete:
+      requestBody:
+        required: false
       tags:
         - Administration
+      responses:
+        '200':
+          description: Successful Operation.
+          x-last-modified: 1638881225321
       operationId: delete-user-admin
       summary: Delete a user.
+    parameters:
+      - deprecated: false
+        name: user
+        description: ID of the user.
+        in: path
+        required: true
+        x-last-modified: 1638881304368
     x-last-modified: 1638364479418
   /api/administration/{proyecto}/representation:
     summary: Representation of a facility.
@@ -862,6 +903,22 @@ paths:
       operationId: email-verify
       summary: Verify user's email.
     x-last-modified: 1638364497712
+  /api/facilities/{proyecto}/representation:
+    get:
+      tags:
+        - Facilities
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+              example: ''
+          description: Successful Operation.
+          x-last-modified: 1638883817800
+      operationId: get-representation
+      summary: Get representation of a facility
+      description: Get the physical representation of a certain facility.
+    x-last-modified: 1638883759637
 components:
   schemas:
     Facility:
@@ -964,20 +1021,7 @@ components:
       required: true
       x-last-modified: 1638184902784
   securitySchemes:
-    JWTAuth:
-      scheme: bearer
-      bearerFormat: JWT
-      type: http
-      description: |-
-        Example: 
-        > Authorization: Bearer <token>
-      x-last-modified: 1638367145842
     oAuth:
-      scheme: oauth
-      type: http
-      description: ''
-      x-last-modified: 1638369689662
-    oAuth 2:
       flows:
         implicit:
           authorizationUrl: ''
@@ -994,25 +1038,26 @@ components:
           refreshUrl: ''
       type: oauth2
       description: ''
-      x-last-modified: 1638369702743
+      x-last-modified: 1639052872598
   headers: {}
   responses: {}
 security:
   - JWTAuth: []
-  - oAuth: []
   - oAuth 2: []
+  - oAuth: []
 tags:
-  - name: Administration
-    description: All the operations that are allowed for the administrative roles.
-    x-last-modified: 1638358204949
-  - name: Authentication
+  - name: Auth Operations
     description: All the operations that manage the authentication of a user.
-    x-last-modified: 1638358252455
-  - name: Facilities
+    x-last-modified: 1638887202007
+  - name: Facility Operations
     description: >-
       All the operations that are related to facilities for non-administrative
       roles.
-    x-last-modified: 1638358303353
-  - name: Settings
+    x-last-modified: 1638887212025
+  - name: Settings and Profile Operations
     description: All the operations that provide and update information about a user.
-    x-last-modified: 1638358358227
+    x-last-modified: 1638887222655
+  - name: Administrative Operations
+    description: Administration
+    externalDocs: {}
+    x-last-modified: 1638887231396
