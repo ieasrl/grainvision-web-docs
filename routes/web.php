@@ -19,6 +19,6 @@ Route::get('/', function () {
 
 Route::get('/docs', function(){
     
-    return response()->file(resource_path('/OA-docs.yaml'));
+    return response()->file(resource_path('/OA-docs.json'));
 
 });
