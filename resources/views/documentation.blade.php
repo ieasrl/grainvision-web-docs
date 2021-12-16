@@ -13,9 +13,9 @@
         /*rapi-doc::part(section-navbar) {}*/
         
 
-        rapi-doc::part(section-auth) {
-            padding-bottom: 10%
-        }
+        rapi-doc::part(section-auth) {  
+            padding-bottom: 10% 
+        } 
 
         img {
             width: 80%;

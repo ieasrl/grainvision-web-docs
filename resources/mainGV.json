@@ -1,0 +1,1439 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Grainvision API",
+        "version": "1.0.0",
+        "description": "# Documentation\nThis is the documentation page for **Grainvision Web**. Created to provide a better understanding of how to use this app and build a better overall user experience. It contains all relevant paths and operations with important data, including their parameters, responses, and possible errors. \n\nThe API can be divided into three main groups of endpoints:\n\n\n### * **Facility Operations**\n\nIt consists of all the operations used to view, store, update and delete facilities, and all the pieces that compose them. It's the main characteristic of Grainvision Web and the one that is most deeply explained in this documentation page.\n\n### * **Authentication Operations**\n\nThese are the operations which primary purpose is to authenticate the user to give them access into the application. Without authentication the user cannot operate with the API.\n\n### * **Settings and Profile Operations**\n\nThis group is useful for configuration purposes, managing the user's profile and its information.\n",
+        "contact": {
+            "name": "IEA",
+            "email": "a@j.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://grainvision.local/",
+            "description": "",
+            "x-last-modified": 1639058782538
+        }
+    ],
+    "paths": {
+        "/api/user": {
+            "summary": "Get user.",
+            "description": "Get information about the user.",
+            "get": {
+                "tags": [
+                    "Settings and Profile Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                },
+                                "example": "",
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "name": "user",
+                                            "email": "user@email.com",
+                                            "created_at": "2021-10-04 09:24:59",
+                                            "updated_at": "2021-12-06 10:01:05",
+                                            "photo_url": "https://www.photourl.com",
+                                            "permissions": [
+                                                {
+                                                    "name": "permission"
+                                                }
+                                            ],
+                                            "roles": [
+                                                {
+                                                    "name": "role",
+                                                    "permissions": []
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful operation."
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getUser",
+                "summary": "Get user",
+                "description": "This request returns an object that contains information about the current user, including its username, email, roles, and permissions."
+            },
+            "x-last-modified": 1639059221932
+        },
+        "/api/settings/profile": {
+            "summary": "Update profile.",
+            "description": "Update username and email of a user.",
+            "patch": {
+                "requestBody": {
+                    "description": "Enter username and password.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "description": "",
+                                "required": [
+                                    "name",
+                                    "email"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                    }
+                                },
+                                "x-examples": {
+                                    "example-1": {
+                                        "name": "fede",
+                                        "email": "admin@grainvision.com.ar"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Settings and Profile Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesful operation."
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "patchProfile",
+                "summary": "Change user info",
+                "description": "This operation receives values for username and email, and updates them from the current ones."
+            },
+            "x-last-modified": 1639059230919
+        },
+        "/api/facilities": {
+            "summary": "Get facilities.",
+            "description": "Interaction of the user with facilities",
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "An array with all the stored facilities",
+                                    "minItems": 1,
+                                    "uniqueItems": true,
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Facility"
+                                    },
+                                    "x-examples": {
+                                        "example-1": [
+                                            {
+                                                "nombre": "GV0001",
+                                                "descripcion": "Company1",
+                                                "version": "3.5.10",
+                                                "seeded": "2020-09-12 09:38:40",
+                                                "history_days": "365",
+                                                "created_at": "2020-09-12 09:35:25",
+                                                "updated_at": "2021-01-05 16:23:00"
+                                            },
+                                            {
+                                                "nombre": "GV0002",
+                                                "descripcion": "Company2",
+                                                "version": "3.5.10",
+                                                "seeded": "2020-10-25 14:58:30",
+                                                "history_days": "365",
+                                                "created_at": "2020-10-25 14:55:35",
+                                                "updated_at": "2021-05-03 10:43:00"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful operation."
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "x-last-modified": 1638880431161
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getFacilities",
+                "summary": "Get facilities.",
+                "description": "This operation returns an array with all the stored facilities, each one being an object composed by their name, description and version."
+            },
+            "x-last-modified": 1639059376357
+        },
+        "/api/login": {
+            "summary": "Log in.",
+            "description": "Log user into the app with username and password.",
+            "post": {
+                "requestBody": {
+                    "description": "Enter user credentials.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Login",
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "minLength": 1,
+                                        "type": "string"
+                                    }
+                                },
+                                "x-examples": {
+                                    "example-1": {
+                                        "email": "admin@grainvision.com.ar",
+                                        "password": "secret"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "email": "user@email.com",
+                                        "password": "password"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Auth Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bearer"
+                                }
+                            }
+                        },
+                        "description": "Successful operation."
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "422": {
+                        "description": "Invalid credentials."
+                    }
+                },
+                "security": [
+                    {}
+                ],
+                "operationId": "postLogin",
+                "summary": "Log In.",
+                "description": "Providing a valid username and password, this operation authenticates the user, allowing him to access the application."
+            },
+            "x-last-modified": 1639486871327
+        },
+        "/api/facilities/{proyecto}": {
+            "summary": "Get a facility.",
+            "description": "Get information about a specific facility.",
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Facility"
+                                }
+                            }
+                        },
+                        "description": "Successful operation."
+                    },
+                    "400": {
+                        "description": "Bad Request.",
+                        "x-last-modified": 1638880551092
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getFacility",
+                "summary": "Get facility.",
+                "description": "This request returns an object with name, description, creation date, and version of a particular facility, specified in the path as a variable."
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/proyecto",
+                    "x-last-modified": 1638184958406
+                }
+            ],
+            "x-last-modified": 1639487141843
+        },
+        "/api/facilities/{proyecto}/summary": {
+            "summary": "Get summary.",
+            "description": "Get the summary of a facility.",
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "",
+                                    "required": [
+                                        "sensors",
+                                        "summaries"
+                                    ],
+                                    "type": "object",
+                                    "properties": {
+                                        "sensors": {
+                                            "type": "number"
+                                        },
+                                        "summaries": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    },
+                                    "example": "",
+                                    "x-examples": {
+                                        "example-1": {
+                                            "sensors": 8104,
+                                            "summaries": []
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful operation."
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getSummary",
+                "summary": "Show summary of a facility.",
+                "description": "This operation shows an object that contains the exact number of sensors, and a written summary of a particular facility."
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/proyecto",
+                    "name": "proyecto",
+                    "x-last-modified": 1638184990619
+                }
+            ],
+            "x-last-modified": 1639487155371
+        },
+        "/api/facilities/{proyecto}/containers": {
+            "summary": "Get containers.",
+            "description": "Get an array with all the containers in a facility.",
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Container"
+                                    },
+                                    "example": ""
+                                },
+                                "example": ""
+                            }
+                        },
+                        "description": "Successful operation."
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getConteiners",
+                "summary": "Show containers.",
+                "description": "This request returns an array with all the containers included in a specific facility. Each container is an object that shows its tag and type."
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/proyecto",
+                    "name": "proyecto",
+                    "x-last-modified": 1638184979121
+                }
+            ],
+            "x-last-modified": 1639487164993
+        },
+        "/api/facilities/{proyecto}/representation": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "parameters": [
+                    {
+                        "name": "proyecto",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Representation"
+                                },
+                                "example": ""
+                            }
+                        },
+                        "description": "Successful Operation.",
+                        "x-last-modified": 1638883817800
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getRepresentation",
+                "summary": "Get representation of a facility",
+                "description": "This request returns a JSON object with information used to represent graphically a particular facility. This includes coordinates, sizes, angles, etc. of the different components that conform a facility."
+            },
+            "parameters": [
+                {
+                    "name": "proyecto",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "x-last-modified": 1639487174047
+        },
+        "/api/logout": {
+            "summary": "Log out.",
+            "description": "Log out of the app.",
+            "post": {
+                "tags": [
+                    "Auth Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation."
+                    }
+                },
+                "security": [
+                    {}
+                ],
+                "operationId": "postLogout",
+                "summary": "Log Out.",
+                "description": "This operation logs out the user, making them unauthenticated."
+            },
+            "x-last-modified": 1639487185782
+        },
+        "/api/facilities/{proyecto}/{tag}/cables": {
+            "summary": "Show all the cables in a container.",
+            "description": "Display an array with all the cables contained inside a particular container.",
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Cable"
+                                    },
+                                    "example": ""
+                                },
+                                "example": ""
+                            }
+                        },
+                        "description": "",
+                        "x-last-modified": 1639570874526
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getCables",
+                "summary": "Show all cables inside a container.",
+                "description": "This request displays an array with all the cables inside a particular container, with their information."
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/proyecto",
+                    "name": "proyecto",
+                    "x-last-modified": 1639570564943
+                },
+                {
+                    "$ref": "#/components/parameters/tag",
+                    "name": "tag",
+                    "x-last-modified": 1639570583955
+                }
+            ],
+            "x-last-modified": 1639570912647
+        },
+        "/api/facilities/{proyecto}/{tag}/detail": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ContainerDetails"
+                                }
+                            }
+                        },
+                        "description": "Successful operation.",
+                        "x-last-modified": 1639571342501
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getContainerDetail",
+                "summary": "Show details of a container",
+                "description": "Show an object that displays the container's tag, and an array with all its truss."
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/proyecto",
+                    "name": "proyecto",
+                    "x-last-modified": 1639571855005
+                },
+                {
+                    "$ref": "#/components/parameters/tag",
+                    "name": "tag",
+                    "x-last-modified": 1639571867490
+                }
+            ],
+            "x-last-modified": 1639571056380
+        },
+        "/api/facilities/{proyecto}/{tag}/historics": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Historics"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "",
+                        "x-last-modified": 1639571732190
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getContainerHistorics",
+                "summary": "Display historics for a container.",
+                "description": "This operation returns an array with the tags of all the sensors that are part of particular container."
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/proyecto",
+                    "name": "proyecto",
+                    "x-last-modified": 1639571888349
+                },
+                {
+                    "$ref": "#/components/parameters/tag",
+                    "name": "tag",
+                    "x-last-modified": 1639571897605
+                }
+            ],
+            "x-last-modified": 1639571659029
+        },
+        "/api/facilities/{proyecto}/{tag}/summary": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Summary"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "sensors": 11,
+                                            "summary": [
+                                                {},
+                                                {}
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "",
+                        "x-last-modified": 1639572122963
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getContainerSummary",
+                "summary": "Show summary of a container.",
+                "description": "Shows an object that contains the exact number of sensors, and a written summary of a particular container."
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/proyecto",
+                    "name": "proyecto",
+                    "x-last-modified": 1639571914925
+                },
+                {
+                    "$ref": "#/components/parameters/tag",
+                    "name": "tag",
+                    "x-last-modified": 1639571931774
+                }
+            ],
+            "x-last-modified": 1639571836662
+        }
+    },
+    "components": {
+        "schemas": {
+            "Facility": {
+                "description": "Facility object\n",
+                "required": [
+                    "id",
+                    "nombre",
+                    "descripcion",
+                    "version",
+                    "seeded",
+                    "history_days",
+                    "created_at",
+                    "updated_at"
+                ],
+                "type": "object",
+                "properties": {
+                    "nombre": {
+                        "type": "string"
+                    },
+                    "descripcion": {
+                        "type": "string"
+                    },
+                    "seeded": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "nombre": "GV001",
+                    "descripcion": "Company1",
+                    "seeded": "2021-10-25 11:58:30",
+                    "version": "3.5.10"
+                },
+                "x-examples": {
+                    "example-1": {
+                        "nombre": "GV3679",
+                        "descripcion": "Company SA",
+                        "version": "3.5.10",
+                        "seeded": "2021-10-25 11:58:30",
+                        "history_days": "365",
+                        "created_at": "2021-10-25 11:55:25",
+                        "updated_at": "2021-11-03 10:23:00"
+                    }
+                },
+                "x-last-modified": 1639489320217
+            },
+            "Container": {
+                "description": "Container object",
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string",
+                        "example": [
+                            "G001"
+                        ]
+                    },
+                    "tipo": {
+                        "type": "object",
+                        "properties": {
+                            "tipo": {
+                                "type": "string",
+                                "example": [
+                                    "Celda"
+                                ]
+                            },
+                            "letra": {
+                                "type": "string",
+                                "example": [
+                                    "G"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "tag": "G001",
+                    "tipo": {
+                        "tipo": "Celda",
+                        "letra": "G"
+                    }
+                },
+                "x-last-modified": 1639577886805
+            },
+            "Cable": {
+                "description": "Cable object",
+                "required": [
+                    "tag",
+                    "sensores_count"
+                ],
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string",
+                        "example": [
+                            "G001K001C001"
+                        ]
+                    },
+                    "sensores_count": {
+                        "type": "number",
+                        "example": [
+                            3
+                        ]
+                    }
+                },
+                "example": {
+                    "tag": "G001K001C001",
+                    "sensores_count": 3
+                },
+                "x-last-modified": 1639577839511
+            },
+            "Sensor": {
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string",
+                        "example": [
+                            "G001K001C001N001"
+                        ]
+                    },
+                    "nivel": {
+                        "type": "number",
+                        "example": [
+                            1
+                        ]
+                    },
+                    "conectado": {
+                        "type": "number",
+                        "example": [
+                            1
+                        ]
+                    },
+                    "historicos": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": [
+                                null
+                            ]
+                        }
+                    }
+                },
+                "example": {
+                    "tag": "G001K001C001N001",
+                    "nivel": 1,
+                    "conectado": 1,
+                    "historicos": []
+                },
+                "x-last-modified": 1639571603509
+            },
+            "ContainerDetails": {
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string",
+                        "example": [
+                            "G001"
+                        ]
+                    },
+                    "cabriadas": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "tag": {
+                                    "type": "string",
+                                    "example": [
+                                        "G001K001"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "tag": "G001",
+                    "cabriadas": [
+                        {
+                            "tag": "G001K001"
+                        }
+                    ]
+                },
+                "x-last-modified": 1639577788210
+            },
+            "Representation": {
+                "description": "Object of the representation of a facility.",
+                "type": "object",
+                "properties": {
+                    "konva": {
+                        "type": "object",
+                        "properties": {
+                            "width": {
+                                "type": "string",
+                                "example": [
+                                    "1500"
+                                ]
+                            },
+                            "height": {
+                                "type": "number",
+                                "example": [
+                                    1080
+                                ]
+                            }
+                        }
+                    },
+                    "compassRose": {
+                        "type": "object",
+                        "properties": {
+                            "position": {
+                                "type": "object",
+                                "properties": {
+                                    "x": {
+                                        "type": "number",
+                                        "example": [
+                                            1110.2148701509911
+                                        ]
+                                    },
+                                    "y": {
+                                        "type": "number",
+                                        "example": [
+                                            80.84177747185198
+                                        ]
+                                    }
+                                }
+                            },
+                            "rotation": {
+                                "type": "number",
+                                "example": [
+                                    0
+                                ]
+                            }
+                        }
+                    },
+                    "silos": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "tag": {
+                                    "type": "string",
+                                    "example": [
+                                        "S021"
+                                    ]
+                                },
+                                "radius": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "dist": {
+                                                "type": "number",
+                                                "example": [
+                                                    30
+                                                ]
+                                            },
+                                            "angle": {
+                                                "type": "number",
+                                                "example": [
+                                                    270
+                                                ]
+                                            },
+                                            "cables": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "tag": {
+                                                            "type": "string",
+                                                            "example": [
+                                                                "S021C001"
+                                                            ]
+                                                        },
+                                                        "position": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "x": {
+                                                                    "type": "number",
+                                                                    "example": [
+                                                                        75
+                                                                    ]
+                                                                },
+                                                                "y": {
+                                                                    "type": "number",
+                                                                    "example": [
+                                                                        52.5
+                                                                    ]
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "position": {
+                                    "type": "object",
+                                    "properties": {
+                                        "x": {
+                                            "type": "number",
+                                            "example": [
+                                                120.69703904661543
+                                            ]
+                                        },
+                                        "y": {
+                                            "type": "number",
+                                            "example": [
+                                                287.3347390333124
+                                            ]
+                                        }
+                                    }
+                                },
+                                "label": {
+                                    "type": "string",
+                                    "example": [
+                                        "S021"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "cells": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "tag": {
+                                    "type": "string",
+                                    "example": [
+                                        "G007"
+                                    ]
+                                },
+                                "tGutter": {
+                                    "type": "number",
+                                    "example": [
+                                        -1
+                                    ]
+                                },
+                                "cGutter": {
+                                    "type": "number",
+                                    "example": [
+                                        44
+                                    ]
+                                },
+                                "rotation": {
+                                    "type": "number",
+                                    "example": [
+                                        270
+                                    ]
+                                },
+                                "truss": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "tag": {
+                                                "type": "string",
+                                                "example": [
+                                                    "G007K001"
+                                                ]
+                                            },
+                                            "cables": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "tag": {
+                                                            "type": "string",
+                                                            "example": [
+                                                                "G007K001C001"
+                                                            ]
+                                                        },
+                                                        "position": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "x": {
+                                                                    "type": "number",
+                                                                    "example": [
+                                                                        10
+                                                                    ]
+                                                                },
+                                                                "y": {
+                                                                    "type": "number",
+                                                                    "example": [
+                                                                        10
+                                                                    ]
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "label": {
+                                                "type": "string",
+                                                "example": [
+                                                    "K001"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                "position": {
+                                    "type": "object",
+                                    "properties": {
+                                        "x": {
+                                            "type": "number",
+                                            "example": [
+                                                681.3391789554933
+                                            ]
+                                        },
+                                        "y": {
+                                            "type": "number",
+                                            "example": [
+                                                455.61330364588923
+                                            ]
+                                        }
+                                    }
+                                },
+                                "label": {
+                                    "type": "string",
+                                    "example": [
+                                        "G007"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "konva": {
+                        "width": "1500",
+                        "height": 1080
+                    },
+                    "compassRose": {
+                        "position": {
+                            "x": 1110.2148701509911,
+                            "y": 80.84177747185198
+                        },
+                        "rotation": 0
+                    },
+                    "silos": [
+                        {
+                            "tag": "S021",
+                            "radius": [
+                                {
+                                    "dist": 30,
+                                    "angle": 270,
+                                    "cables": [
+                                        {
+                                            "tag": "S021C001",
+                                            "position": {
+                                                "x": 75,
+                                                "y": 52.5
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "position": {
+                                "x": 120.69703904661543,
+                                "y": 287.3347390333124
+                            },
+                            "label": "S021"
+                        }
+                    ],
+                    "cells": [
+                        {
+                            "tag": "G007",
+                            "tGutter": -1,
+                            "cGutter": 44,
+                            "rotation": 270,
+                            "truss": [
+                                {
+                                    "tag": "G007K001",
+                                    "cables": [
+                                        {
+                                            "tag": "G007K001C001",
+                                            "position": {
+                                                "x": 10,
+                                                "y": 10
+                                            }
+                                        }
+                                    ],
+                                    "label": "K001"
+                                }
+                            ],
+                            "position": {
+                                "x": 681.3391789554933,
+                                "y": 455.61330364588923
+                            },
+                            "label": "G007"
+                        }
+                    ]
+                },
+                "x-last-modified": 1639578539446
+            },
+            "Login": {
+                "title": "Root Type for Login",
+                "description": "Object required to log into the application.",
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "email": "email@email.com",
+                    "password": "password"
+                }
+            },
+            "Bearer": {
+                "title": "Root Type for Bearer",
+                "description": "Bearer token for authentication ",
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    },
+                    "token_type": {
+                        "type": "string"
+                    },
+                    "expires_in": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "token": "atoken",
+                    "token_type": "bearer",
+                    "expires_in": 86400
+                }
+            },
+            "Unauthorized": {
+                "title": "Root Type for Unauthorized",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "errors": {
+                        "type": "object",
+                        "properties": {
+                            "email": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "message": "The given data was invalid.",
+                    "errors": {
+                        "email": [
+                            "Incorrect email."
+                        ]
+                    }
+                }
+            },
+            "Historics": {
+                "title": "Root Type for Historics",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string"
+                    },
+                    "nivel": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "conectado": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "historicos": {
+                        "type": "array",
+                        "items": {}
+                    }
+                },
+                "example": {
+                    "tag": "G001K001C001N001",
+                    "nivel": 1,
+                    "conectado": 1,
+                    "historicos": []
+                }
+            },
+            "Summary": {
+                "title": "Root Type for Summary",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "sensors": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "summary": {
+                        "type": "array",
+                        "items": {}
+                    }
+                },
+                "example": {
+                    "sensors": 1012,
+                    "summary": []
+                }
+            },
+            "Authenticated": {
+                "title": "Root Type for Authenticated",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "error": "Already authenticated."
+                }
+            },
+            "User": {
+                "title": "Root Type for User",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "photo_url": {
+                        "type": "string"
+                    },
+                    "permissions": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "permissions": {
+                                    "type": "array",
+                                    "items": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "name": "user",
+                    "email": "user@email.com",
+                    "created_at": "2021-10-04 09:24:59",
+                    "updated_at": "2021-12-06 10:01:05",
+                    "photo_url": "https://www.photourl.com",
+                    "permissions": [
+                        {
+                            "name": "permission"
+                        }
+                    ],
+                    "roles": [
+                        {
+                            "name": "role",
+                            "permissions": []
+                        }
+                    ]
+                }
+            }
+        },
+        "responses": {
+            "400": {
+                "description": "Already Authenticated"
+            },
+            "401": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Unauthorized"
+                        },
+                        "examples": {
+                            "example1": {
+                                "value": {
+                                    "message": "The given data was invalid.",
+                                    "errors": {
+                                        "email": [
+                                            "Incorrect email."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Unauthorized"
+            }
+        },
+        "parameters": {
+            "proyecto": {
+                "deprecated": false,
+                "name": "proyecto",
+                "description": "Name of the desired facility.",
+                "schema": {
+                    "format": "text",
+                    "description": "Name of the facility.",
+                    "type": "string"
+                },
+                "in": "path",
+                "required": true,
+                "x-last-modified": 1638184902784
+            },
+            "tag": {
+                "deprecated": false,
+                "name": "tag",
+                "description": "Path of a specific container in a specific facility.",
+                "schema": {},
+                "in": "path",
+                "required": true,
+                "x-last-modified": 1639488925114
+            }
+        },
+        "securitySchemes": {
+            "JWTAuth": {
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "type": "http",
+                "description": "Example: \n> Authorization: Bearer <token>",
+                "x-last-modified": 1639393999621
+            }
+        }
+    },
+    "security": [
+        {
+            "JWTAuth": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "Auth Operations",
+            "description": "All the operations that manage the authentication of a user.",
+            "x-last-modified": 1638887202007
+        },
+        {
+            "name": "Facility Operations",
+            "description": "All the operations that are related to facilities for non-administrative roles.",
+            "x-last-modified": 1638887212025
+        },
+        {
+            "name": "Settings and Profile Operations",
+            "description": "All the operations that provide and update information about a user.",
+            "x-last-modified": 1638887222655
+        }
+    ]
+}

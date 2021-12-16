@@ -17,8 +17,18 @@ Route::get('/', function () {
     return view('documentation');
 });
 
+Route::get('/redocs', function () {
+    return view('redocs');
+});
+
 Route::get('/docs', function(){
     
-    return response()->file(resource_path('/OA-docs.json'));
+    return response()->file(resource_path('/mainGV.json'));
+
+});
+
+Route::get('/adminDocs', function(){
+    
+    return response()->file(resource_path('/adminGV.json'));
 
 });
