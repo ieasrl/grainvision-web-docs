@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('documentation');
+    return view('docs');
 });
 
-Route::get('/redocs', function () {
-    return view('redocs');
+Route::get('/alt', function () {
+    return view('documentation');
 });
 
 Route::get('/docs', function(){

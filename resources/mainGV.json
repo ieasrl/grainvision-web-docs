@@ -3,6 +3,9 @@
     "info": {
         "title": "Grainvision API",
         "version": "1.0.0",
+        "x-logo":{
+            "url":"./images/logo_grainvision.svg"
+        },
         "description": "# Documentation\nThis is the documentation page for **Grainvision Web**. Created to provide a better understanding of how to use this app and build a better overall user experience. It contains all relevant paths and operations with important data, including their parameters, responses, and possible errors. \n\nThe API can be divided into three main groups of endpoints:\n\n\n### * **Facility Operations**\n\nIt consists of all the operations used to view, store, update and delete facilities, and all the pieces that compose them. It's the main characteristic of Grainvision Web and the one that is most deeply explained in this documentation page.\n\n### * **Authentication Operations**\n\nThese are the operations which primary purpose is to authenticate the user to give them access into the application. Without authentication the user cannot operate with the API.\n\n### * **Settings and Profile Operations**\n\nThis group is useful for configuration purposes, managing the user's profile and its information.\n",
         "contact": {
             "name": "IEA",
@@ -31,27 +34,46 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/User"
                                 },
-                                "example": "",
                                 "examples": {
                                     "example1": {
-                                        "value": {
-                                            "name": "user",
-                                            "email": "user@email.com",
-                                            "created_at": "2021-10-04 09:24:59",
-                                            "updated_at": "2021-12-06 10:01:05",
-                                            "photo_url": "https://www.photourl.com",
-                                            "permissions": [
-                                                {
-                                                    "name": "permission"
-                                                }
-                                            ],
-                                            "roles": [
-                                                {
-                                                    "name": "role",
-                                                    "permissions": []
-                                                }
-                                            ]
-                                        }
+                                        "value": [
+                                            {
+                                                "name": "user",
+                                                "email": "user@email.com",
+                                                "created_at": "[creationDate]",
+                                                "updated_at": "[updatedDate]",
+                                                "photo_url": "[photoURL]",
+                                                "permissions": [
+                                                    {
+                                                        "name": "[permission]"
+                                                    }
+                                                ],
+                                                "roles": [
+                                                    {
+                                                        "name": "[role]",
+                                                        "permissions": []
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "user2",
+                                                "email": "user2@email.com",
+                                                "created_at": "[creationDate]",
+                                                "updated_at": "[updatedDate]",
+                                                "photo_url": "[photoURL]",
+                                                "permissions": [
+                                                    {
+                                                        "name": "[permission]"
+                                                    }
+                                                ],
+                                                "roles": [
+                                                    {
+                                                        "name": "[role]",
+                                                        "permissions": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
                                     }
                                 }
                             }
@@ -59,7 +81,7 @@
                         "description": "Successful operation."
                     },
                     "401": {
-                        "description": "Not authenticated."
+                        "$ref": "#/components/responses/401"
                     }
                 },
                 "security": [
@@ -82,12 +104,12 @@
                     "content": {
                         "application/json": {
                             "schema": {
+                                "$ref": "#/components/schemas/profileChange",
                                 "description": "",
                                 "required": [
                                     "name",
                                     "email"
                                 ],
-                                "type": "object",
                                 "properties": {
                                     "name": {
                                         "minLength": 1,
@@ -104,6 +126,14 @@
                                         "email": "admin@grainvision.com.ar"
                                     }
                                 }
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "name": "[newName]",
+                                        "email": "[newEmail]"
+                                    }
+                                }
                             }
                         }
                     },
@@ -114,6 +144,35 @@
                 ],
                 "responses": {
                     "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "name": "[newName]",
+                                            "email": "[newEmail]",
+                                            "created_at": "[creationDate]",
+                                            "updated_at": "[updatedDate]",
+                                            "photo_url": "[photoURL]",
+                                            "permissions": [
+                                                {
+                                                    "name": "[permission]"
+                                                }
+                                            ],
+                                            "roles": [
+                                                {
+                                                    "name": "[role]",
+                                                    "permissions": []
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         "description": "Succesful operation."
                     }
                 },
@@ -166,6 +225,24 @@
                                                 "history_days": "365",
                                                 "created_at": "2020-10-25 14:55:35",
                                                 "updated_at": "2021-05-03 10:43:00"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": [
+                                            {
+                                                "nombre": "[facilityName]",
+                                                "descripcion": "[facilityDescription]",
+                                                "seeded": "[seededDate]",
+                                                "version": "[facilityVersion]"
+                                            },
+                                            {
+                                                "nombre": "[facilityName]",
+                                                "descripcion": "[facilityDescription]",
+                                                "seeded": "[seededDate]",
+                                                "version": "[facilityVersion]"
                                             }
                                         ]
                                     }
@@ -242,6 +319,15 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Bearer"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "token": "[token]",
+                                            "token_type": "bearer",
+                                            "expires_in": 76
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -279,6 +365,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Facility"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "nombre": "[facilityName]",
+                                            "descripcion": "[facilityDescription]",
+                                            "seeded": "[seededDate]",
+                                            "version": "[facilityVersion]"
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -301,7 +397,8 @@
             "parameters": [
                 {
                     "$ref": "#/components/parameters/proyecto",
-                    "x-last-modified": 1638184958406
+                    "name": "proyecto",
+                    "x-last-modified": 1638184990619
                 }
             ],
             "x-last-modified": 1639487141843
@@ -318,12 +415,12 @@
                         "content": {
                             "application/json": {
                                 "schema": {
+                                    "$ref": "#/components/schemas/Summary",
                                     "description": "",
                                     "required": [
                                         "sensors",
                                         "summaries"
                                     ],
-                                    "type": "object",
                                     "properties": {
                                         "sensors": {
                                             "type": "number"
@@ -340,6 +437,14 @@
                                             "summaries": []
                                         }
                                     }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "sensors": 1012,
+                                            "summaries": []
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -352,7 +457,7 @@
                     }
                 ],
                 "operationId": "getSummary",
-                "summary": "Show summary of a facility.",
+                "summary": "Get summary of a facility.",
                 "description": "This operation shows an object that contains the exact number of sensors, and a written summary of a particular facility."
             },
             "parameters": [
@@ -383,7 +488,26 @@
                                     },
                                     "example": ""
                                 },
-                                "example": ""
+                                "examples": {
+                                    "example1": {
+                                        "value": [
+                                            {
+                                                "tag": "[containerTag]",
+                                                "tipo": {
+                                                    "tipo": "[containerType]",
+                                                    "letra": "[letter]"
+                                                }
+                                            },
+                                            {
+                                                "tag": "[containerTag]",
+                                                "tipo": {
+                                                    "tipo": "[containerType]",
+                                                    "letra": "[letter]"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
                             }
                         },
                         "description": "Successful operation."
@@ -394,8 +518,8 @@
                         "JWTAuth": []
                     }
                 ],
-                "operationId": "getConteiners",
-                "summary": "Show containers.",
+                "operationId": "getContainers",
+                "summary": "Get containers.",
                 "description": "This request returns an array with all the containers included in a specific facility. Each container is an object that shows its tag and type."
             },
             "parameters": [
@@ -412,13 +536,6 @@
                 "tags": [
                     "Facility Operations"
                 ],
-                "parameters": [
-                    {
-                        "name": "proyecto",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -426,7 +543,180 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Representation"
                                 },
-                                "example": ""
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "konva": {
+                                                "width": "[konvaWidth]",
+                                                "height": 62.28
+                                            },
+                                            "compassRose": {
+                                                "position": {
+                                                    "x": 64.35,
+                                                    "y": 28.82
+                                                },
+                                                "rotation": 77.31
+                                            },
+                                            "silos": [
+                                                {
+                                                    "tag": "[siloTag]",
+                                                    "radius": [
+                                                        {
+                                                            "dist": 36,
+                                                            "angle": 69.17,
+                                                            "cables": [
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 0.44,
+                                                                        "y": 72.53
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 43.23,
+                                                                        "y": 75.67
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "dist": 5.51,
+                                                            "angle": 75.55,
+                                                            "cables": [
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 21.3,
+                                                                        "y": 40.65
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 90.19,
+                                                                        "y": 70.48
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "position": {
+                                                        "x": 84.95,
+                                                        "y": 95.19
+                                                    },
+                                                    "label": "[silosLabel]"
+                                                },
+                                                {
+                                                    "tag": "[siloTag]",
+                                                    "radius": [
+                                                        {
+                                                            "dist": 14.05,
+                                                            "angle": 60.58,
+                                                            "cables": [
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 72.27,
+                                                                        "y": 91.41
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 42.8,
+                                                                        "y": 5.46
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "dist": 84.71,
+                                                            "angle": 89.82,
+                                                            "cables": [
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 7.35,
+                                                                        "y": 72.83
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 58.92,
+                                                                        "y": 48.39
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "position": {
+                                                        "x": 39.63,
+                                                        "y": 66.74
+                                                    },
+                                                    "label": "[silosLabel]"
+                                                }
+                                            ],
+                                            "cells": [
+                                                {
+                                                    "tag": "[cellsTag]",
+                                                    "tGutter": 31.04,
+                                                    "cGutter": 25.8,
+                                                    "rotation": 47.3,
+                                                    "truss": [
+                                                        {
+                                                            "tag": "[trussTag]",
+                                                            "cables": [
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 2.16,
+                                                                        "y": 60.93
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 41.07,
+                                                                        "y": 66.83
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "label": "[trussLabel]"
+                                                        },
+                                                        {
+                                                            "tag": "[trussTag]",
+                                                            "cables": [
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 88.17,
+                                                                        "y": 55.94
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "tag": "[cablesTag]",
+                                                                    "position": {
+                                                                        "x": 49.49,
+                                                                        "y": 80.22
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "label": "[trussLabel]"
+                                                        }
+                                                    ],
+                                                    "position": {
+                                                        "x": 18.6,
+                                                        "y": 9.33
+                                                    },
+                                                    "label": "[cellLabel]"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
                             }
                         },
                         "description": "Successful Operation.",
@@ -444,9 +734,9 @@
             },
             "parameters": [
                 {
+                    "$ref": "#/components/parameters/proyecto",
                     "name": "proyecto",
-                    "in": "path",
-                    "required": true
+                    "x-last-modified": 1639571914925
                 }
             ],
             "x-last-modified": 1639487174047
@@ -467,14 +757,12 @@
                     {}
                 ],
                 "operationId": "postLogout",
-                "summary": "Log Out.",
+                "summary": "Log out.",
                 "description": "This operation logs out the user, making them unauthenticated."
             },
             "x-last-modified": 1639487185782
         },
-        "/api/facilities/{proyecto}/{tag}/cables": {
-            "summary": "Show all the cables in a container.",
-            "description": "Display an array with all the cables contained inside a particular container.",
+        "/api/facilities/{proyecto}/{containerOrSilo}/detail": {
             "get": {
                 "tags": [
                     "Facility Operations"
@@ -484,54 +772,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "description": "",
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Cable"
-                                    },
-                                    "example": ""
+                                    "$ref": "#/components/schemas/ContainerDetail"
                                 },
-                                "example": ""
-                            }
-                        },
-                        "description": "",
-                        "x-last-modified": 1639570874526
-                    }
-                },
-                "security": [
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "operationId": "getCables",
-                "summary": "Show all cables inside a container.",
-                "description": "This request displays an array with all the cables inside a particular container, with their information."
-            },
-            "parameters": [
-                {
-                    "$ref": "#/components/parameters/proyecto",
-                    "name": "proyecto",
-                    "x-last-modified": 1639570564943
-                },
-                {
-                    "$ref": "#/components/parameters/tag",
-                    "name": "tag",
-                    "x-last-modified": 1639570583955
-                }
-            ],
-            "x-last-modified": 1639570912647
-        },
-        "/api/facilities/{proyecto}/{tag}/detail": {
-            "get": {
-                "tags": [
-                    "Facility Operations"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ContainerDetails"
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "tag": "[containerTag]",
+                                            "cabriadas": [
+                                                {
+                                                    "tag": "[trussTag]"
+                                                },
+                                                {
+                                                    "tag": "[trussTag]"
+                                                }
+                                            ]
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -545,8 +801,8 @@
                     }
                 ],
                 "operationId": "getContainerDetail",
-                "summary": "Show details of a container",
-                "description": "Show an object that displays the container's tag, and an array with all its truss."
+                "summary": "Get details of a container",
+                "description": "It returns an object with details of a container. It has its tag, and an array of its truss (if it has them)."
             },
             "parameters": [
                 {
@@ -555,14 +811,14 @@
                     "x-last-modified": 1639571855005
                 },
                 {
-                    "$ref": "#/components/parameters/tag",
-                    "name": "tag",
+                    "$ref": "#/components/parameters/ambiTag",
+                    "name": "containerOrSilo",
                     "x-last-modified": 1639571867490
                 }
             ],
             "x-last-modified": 1639571056380
         },
-        "/api/facilities/{proyecto}/{tag}/historics": {
+        "/api/facilities/{proyecto}/{containerOrSilo}/historics": {
             "get": {
                 "tags": [
                     "Facility Operations"
@@ -575,6 +831,30 @@
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/components/schemas/Historics"
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": [
+                                            {
+                                                "tag": "[containerTag]",
+                                                "nivel": 52,
+                                                "conectado": 53,
+                                                "historicos": [
+                                                    {},
+                                                    {}
+                                                ]
+                                            },
+                                            {
+                                                "tag": "[containerTag]",
+                                                "nivel": 21,
+                                                "conectado": 80,
+                                                "historicos": [
+                                                    {},
+                                                    {}
+                                                ]
+                                            }
+                                        ]
                                     }
                                 }
                             }
@@ -589,7 +869,7 @@
                     }
                 ],
                 "operationId": "getContainerHistorics",
-                "summary": "Display historics for a container.",
+                "summary": "Get historics of a container.",
                 "description": "This operation returns an array with the tags of all the sensors that are part of particular container."
             },
             "parameters": [
@@ -599,14 +879,14 @@
                     "x-last-modified": 1639571888349
                 },
                 {
-                    "$ref": "#/components/parameters/tag",
-                    "name": "tag",
+                    "$ref": "#/components/parameters/ambiTag",
+                    "name": "containerOrSilo",
                     "x-last-modified": 1639571897605
                 }
             ],
             "x-last-modified": 1639571659029
         },
-        "/api/facilities/{proyecto}/{tag}/summary": {
+        "/api/facilities/{proyecto}/{containerOrSilo}/summary": {
             "get": {
                 "tags": [
                     "Facility Operations"
@@ -641,7 +921,7 @@
                     }
                 ],
                 "operationId": "getContainerSummary",
-                "summary": "Show summary of a container.",
+                "summary": "Get summary of a container.",
                 "description": "Shows an object that contains the exact number of sensors, and a written summary of a particular container."
             },
             "parameters": [
@@ -651,12 +931,423 @@
                     "x-last-modified": 1639571914925
                 },
                 {
-                    "$ref": "#/components/parameters/tag",
-                    "name": "tag",
+                    "$ref": "#/components/parameters/ambiTag",
+                    "name": "containerOrSilo",
                     "x-last-modified": 1639571931774
                 }
             ],
             "x-last-modified": 1639571836662
+        },
+        "/api/facilities/{proyecto}/{containerOrSilo}/cables": {
+            "summary": "Show all the cables in a container.",
+            "description": "Display an array with all the cables contained inside a particular container.",
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Cable"
+                                    },
+                                    "example": ""
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": [
+                                            {
+                                                "tag": "[cableTag]",
+                                                "sensores_count": 23
+                                            },
+                                            {
+                                                "tag": "[cableTag]",
+                                                "sensores_count": 16
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "",
+                        "x-last-modified": 1639570874526
+                    }
+                },
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "operationId": "getCables",
+                "summary": "Get cables inside a container.",
+                "description": "This request displays an array with all the cables inside a particular container, with their information."
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/proyecto",
+                    "name": "proyecto",
+                    "x-last-modified": 1639570564943
+                },
+                {
+                    "$ref": "#/components/parameters/ambiTag",
+                    "name": "containerOrSilo",
+                    "x-last-modified": 1639570583955
+                }
+            ],
+            "x-last-modified": 1639570912647
+        },
+        "/api/facilities/{proyecto}/{silo}/{cable}/historics": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Historics"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "tag": "[Cable Tag]",
+                                            "nivel": 10,
+                                            "conectado": 78,
+                                            "historicos": [
+                                                {
+                                                    "tag": "Sensor Tag"
+                                                },
+                                                {
+                                                    "tag": "Sensor Tag"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful operation."
+                    }
+                },
+                "operationId": "getSiloCableHistorics",
+                "summary": "Get historics of a cable in a silo.",
+                "description": "Shows an object that contains the tag of a particular cable inside a silo, and an array with all the sensors within it.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/proyecto",
+                        "name": "proyecto",
+                        "x-last-modified": 1639571855005
+                    },
+                    {
+                        "$ref": "#/components/parameters/siloTag",
+                        "name": "silo",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/cableTag",
+                        "name": "cable",
+                        "x-last-modified": 1639571867490
+                    }
+                ]
+            }
+        },
+        "/api/facilities/{proyecto}/{silo}/{cable}/{sensor}/historics": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sensor"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "tag": "[Sensor Tag]",
+                                            "nivel": 2,
+                                            "conectado": 1,
+                                            "historicos": []
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Succesful operation."
+                    }
+                },
+                "operationId": "getSiloCableSensorHistorics",
+                "summary": "Get historics of a sensor in a silo",
+                "description": "Get an object that contains the historics of a particular sensor of a cable in a silo inside a particular facility.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/proyecto",
+                        "name": "proyecto",
+                        "x-last-modified": 1639571855005
+                    },
+                    {
+                        "$ref": "#/components/parameters/siloTag",
+                        "name": "silo",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/cableTag",
+                        "name": "cable",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/sensorTag",
+                        "name": "sensor",
+                        "x-last-modified": 1639571867490
+                    }
+                ]
+            }
+        },
+        "/api/facilities/{proyecto}/{container}/{truss}/cables": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Cable"
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": [
+                                            {
+                                                "tag": "[Cable Tag]",
+                                                "sensores_count": 3
+                                            },
+                                            {
+                                                "tag": "[Cable Tag]",
+                                                "sensores_count": 9
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Succesful operation."
+                    }
+                },
+                "operationId": "getTrussCables",
+                "summary": "Get cables of a truss",
+                "description": "Get an array of cable objects inside a particular truss in a container.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/proyecto",
+                        "name": "proyecto",
+                        "x-last-modified": 1639571855005
+                    },
+                    {
+                        "$ref": "#/components/parameters/containerTag",
+                        "name": "container",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/trussTag",
+                        "name": "truss",
+                        "x-last-modified": 1639571867490
+                    }
+                ]
+            }
+        },
+        "/api/facilities/{proyecto}/{container}/{truss}/historics": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Sensor"
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": [
+                                            {
+                                                "tag": "[Sensor Tag]",
+                                                "nivel": 98,
+                                                "conectado": 21,
+                                                "historicos": [
+                                                    {},
+                                                    {}
+                                                ]
+                                            },
+                                            {
+                                                "tag": "[Sensor Tag]",
+                                                "nivel": 77,
+                                                "conectado": 64,
+                                                "historicos": [
+                                                    {},
+                                                    {}
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Succesful operation."
+                    }
+                },
+                "operationId": "getTrussHistorics",
+                "summary": "Get historics of a truss.",
+                "description": "Get an object that shows an array with all the sensors within a particular truss in a container.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/proyecto",
+                        "name": "proyecto",
+                        "x-last-modified": 1639571855005
+                    },
+                    {
+                        "$ref": "#/components/parameters/containerTag",
+                        "name": "container",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/trussTag",
+                        "name": "truss",
+                        "x-last-modified": 1639571867490
+                    }
+                ]
+            }
+        },
+        "/api/facilities/{proyecto}/{container}/{truss}/{cable}/historics": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Historics"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "tag": "[Cable Tag]",
+                                            "nivel": 14,
+                                            "conectado": 89,
+                                            "historicos": [
+                                                {},
+                                                {}
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Succesful operation."
+                    }
+                },
+                "operationId": "getTrussCableHistorics",
+                "summary": "Get historics of a cable in a truss.",
+                "description": "Get an object that contains the tag of a cable in a truss, and an array with all the sensors in it."
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/proyecto",
+                    "name": "proyecto",
+                    "x-last-modified": 1639571855005
+                },
+                {
+                    "$ref": "#/components/parameters/containerTag",
+                    "name": "container",
+                    "x-last-modified": 1639571867490
+                },
+                {
+                    "$ref": "#/components/parameters/trussTag",
+                    "name": "truss",
+                    "x-last-modified": 1639571867490
+                },
+                {
+                    "$ref": "#/components/parameters/cableTag",
+                    "name": "cable",
+                    "x-last-modified": 1639571867490
+                }
+            ]
+        },
+        "/api/facilities/{proyecto}/{container}/{truss}/{cable}/{sensor}/historics": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sensor"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "tag": "[Sensor Tag]",
+                                            "nivel": 3,
+                                            "conectado": 2,
+                                            "historicos": []
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Succesful operation."
+                    }
+                },
+                "operationId": "getTrussCableSensorHistorics",
+                "summary": "Get historics of a sensor in a truss",
+                "description": "Get an object that contains the historics of a particular sensor of a cable in a truss belonging to a container inside a facility.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/proyecto",
+                        "name": "proyecto",
+                        "x-last-modified": 1639571855005
+                    },
+                    {
+                        "$ref": "#/components/parameters/containerTag",
+                        "name": "container",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/trussTag",
+                        "name": "truss",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/cableTag",
+                        "name": "cable",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/sensorTag",
+                        "name": "sensor",
+                        "x-last-modified": 1639571867490
+                    }
+
+                ]
+            }
         }
     },
     "components": {
@@ -706,143 +1397,6 @@
                     }
                 },
                 "x-last-modified": 1639489320217
-            },
-            "Container": {
-                "description": "Container object",
-                "type": "object",
-                "properties": {
-                    "tag": {
-                        "type": "string",
-                        "example": [
-                            "G001"
-                        ]
-                    },
-                    "tipo": {
-                        "type": "object",
-                        "properties": {
-                            "tipo": {
-                                "type": "string",
-                                "example": [
-                                    "Celda"
-                                ]
-                            },
-                            "letra": {
-                                "type": "string",
-                                "example": [
-                                    "G"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "example": {
-                    "tag": "G001",
-                    "tipo": {
-                        "tipo": "Celda",
-                        "letra": "G"
-                    }
-                },
-                "x-last-modified": 1639577886805
-            },
-            "Cable": {
-                "description": "Cable object",
-                "required": [
-                    "tag",
-                    "sensores_count"
-                ],
-                "type": "object",
-                "properties": {
-                    "tag": {
-                        "type": "string",
-                        "example": [
-                            "G001K001C001"
-                        ]
-                    },
-                    "sensores_count": {
-                        "type": "number",
-                        "example": [
-                            3
-                        ]
-                    }
-                },
-                "example": {
-                    "tag": "G001K001C001",
-                    "sensores_count": 3
-                },
-                "x-last-modified": 1639577839511
-            },
-            "Sensor": {
-                "type": "object",
-                "properties": {
-                    "tag": {
-                        "type": "string",
-                        "example": [
-                            "G001K001C001N001"
-                        ]
-                    },
-                    "nivel": {
-                        "type": "number",
-                        "example": [
-                            1
-                        ]
-                    },
-                    "conectado": {
-                        "type": "number",
-                        "example": [
-                            1
-                        ]
-                    },
-                    "historicos": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "example": [
-                                null
-                            ]
-                        }
-                    }
-                },
-                "example": {
-                    "tag": "G001K001C001N001",
-                    "nivel": 1,
-                    "conectado": 1,
-                    "historicos": []
-                },
-                "x-last-modified": 1639571603509
-            },
-            "ContainerDetails": {
-                "type": "object",
-                "properties": {
-                    "tag": {
-                        "type": "string",
-                        "example": [
-                            "G001"
-                        ]
-                    },
-                    "cabriadas": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "tag": {
-                                    "type": "string",
-                                    "example": [
-                                        "G001K001"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                },
-                "example": {
-                    "tag": "G001",
-                    "cabriadas": [
-                        {
-                            "tag": "G001K001"
-                        }
-                    ]
-                },
-                "x-last-modified": 1639577788210
             },
             "Representation": {
                 "description": "Object of the representation of a facility.",
@@ -1351,6 +1905,129 @@
                         }
                     ]
                 }
+            },
+            "Container": {
+                "title": "Root Type for Container",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string"
+                    },
+                    "tipo": {
+                        "type": "object",
+                        "properties": {
+                            "tipo": {
+                                "type": "string"
+                            },
+                            "letra": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "tag": "G001",
+                    "tipo": {
+                        "tipo": "Celda",
+                        "letra": "G"
+                    }
+                }
+            },
+            "Cable": {
+                "title": "Root Type for Cable",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string"
+                    },
+                    "sensores_count": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "tag": "G001K001C001",
+                    "sensores_count": 3
+                }
+            },
+            "ContainerDetail": {
+                "title": "Root Type for Detail",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string"
+                    },
+                    "cabriadas": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "tag": "G001",
+                    "cabriadas": [
+                        {
+                            "tag": "G001K001"
+                        },
+                        {
+                            "tag": "G001K002"
+                        }
+                    ]
+                }
+            },
+            "profileChange": {
+                "title": "Root Type for profileChange",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "name": "[newName]",
+                    "email": "[newEmail]"
+                }
+            },
+            "Sensor": {
+                "title": "Root Type for Sensor",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "tag": {
+                        "type": "string"
+                    },
+                    "nivel": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "conectado": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "historicos": {
+                        "type": "array",
+                        "items": {}
+                    }
+                },
+                "example": {
+                    "tag": "S001C002N002",
+                    "nivel": 2,
+                    "conectado": 1,
+                    "historicos": []
+                }
             }
         },
         "responses": {
@@ -1383,22 +2060,130 @@
         "parameters": {
             "proyecto": {
                 "deprecated": false,
+                "examples": {
+                    "example1": {
+                        "value": "GV0001"
+                    }
+                },
                 "name": "proyecto",
-                "description": "Name of the desired facility.",
+                "description": "Tag of the facility we want to access. It's a string which starts with GV, followed by a number.",
                 "schema": {
                     "format": "text",
-                    "description": "Name of the facility.",
+                    "description": "Tag of facility.",
                     "type": "string"
                 },
                 "in": "path",
                 "required": true,
                 "x-last-modified": 1638184902784
             },
-            "tag": {
+            "ambiTag": {
                 "deprecated": false,
-                "name": "tag",
-                "description": "Path of a specific container in a specific facility.",
-                "schema": {},
+                "examples": {
+                    "example1": {
+                        "value": "G001"
+                    },
+                    "example2": {
+                        "value": "S001"
+                    }
+                },
+                "name": "ambiTag",
+                "description": "Tag of the silo or container we want to access. It can start with an S or a G, followed by a number.",
+                "schema": {
+                    "format": "text",
+                    "description": "Tag of silo or container",
+                    "type": "string"
+                },
+                "in": "path",
+                "required": true,
+                "x-last-modified": 1639488925114
+            },
+            "containerTag": {
+                "deprecated": false,
+                "examples": {
+                    "example1": {
+                        "value": "G001"
+                    }
+                },
+                "name": "containerTag",
+                "description": "Tag of the container we want to access. It starts with a G, followed by a number.",
+                "schema": {
+                    "format": "text",
+                    "description": "Tag of container",
+                    "type": "string"
+                },
+                "in": "path",
+                "required": true,
+                "x-last-modified": 1639488925114
+            },
+            
+            "siloTag": {
+                "deprecated": false,
+                "examples": {
+                    "example2": {
+                        "value": "S001"
+                    }
+                },
+                "name": "siloTag",
+                "description": "Tag of the silo we want to access. It starts with an S, followed by a number.",
+                "schema": {
+                    "format": "text",
+                    "description": "Tag of silo",
+                    "type": "string"
+                },
+                "in": "path",
+                "required": true,
+                "x-last-modified": 1639488925114
+            },
+            "trussTag": {
+                "deprecated": false,
+                "examples": {
+                    "example1": {
+                        "value": "K001"
+                    }
+                },
+                "name": "trussTag",
+                "description": "Tag of the truss we want to access. It starts with a K, followed by a number.",
+                "schema": {
+                    "format": "text",
+                    "description": "Tag of truss",
+                    "type": "string"
+                },
+                "in": "path",
+                "required": true,
+                "x-last-modified": 1639488925114
+            },
+            "cableTag": {
+                "deprecated": false,
+                "examples": {
+                    "example1": {
+                        "value": "C001"
+                    }
+                },
+                "name": "cableTag",
+                "description": "Tag of the cable we want to access. It starts with a C, followed by a number.",
+                "schema": {
+                    "format": "text",
+                    "description": "Name of cable",
+                    "type": "string"
+                },
+                "in": "path",
+                "required": true,
+                "x-last-modified": 1639488925114
+            },
+            "sensorTag": {
+                "deprecated": false,
+                "examples": {
+                    "example1": {
+                        "value": "N001"
+                    }
+                },
+                "name": "trussTag",
+                "description": "Tag of the sensor we want to access. It starts with a N, followed by a number.",
+                "schema": {
+                    "format": "text",
+                    "description": "Tag of sensor",
+                    "type": "string"
+                },
                 "in": "path",
                 "required": true,
                 "x-last-modified": 1639488925114
