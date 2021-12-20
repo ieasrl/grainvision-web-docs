@@ -3,13 +3,13 @@
     "info": {
         "title": "Grainvision API",
         "version": "1.0.0",
-        "x-logo":{
-            "url":"./images/logo_grainvision.svg"
-        },
         "description": "# Documentation\nThis is the documentation page for **Grainvision Web**. Created to provide a better understanding of how to use this app and build a better overall user experience. It contains all relevant paths and operations with important data, including their parameters, responses, and possible errors. \n\nThe API can be divided into three main groups of endpoints:\n\n\n### * **Facility Operations**\n\nIt consists of all the operations used to view, store, update and delete facilities, and all the pieces that compose them. It's the main characteristic of Grainvision Web and the one that is most deeply explained in this documentation page.\n\n### * **Authentication Operations**\n\nThese are the operations which primary purpose is to authenticate the user to give them access into the application. Without authentication the user cannot operate with the API.\n\n### * **Settings and Profile Operations**\n\nThis group is useful for configuration purposes, managing the user's profile and its information.\n",
         "contact": {
             "name": "IEA",
-            "email": "a@j.com"
+            "email": "email@iea.com"
+        },
+        "x-logo": {
+            "url": "./images/logo_grainvision.svg"
         }
     },
     "servers": [
@@ -415,12 +415,15 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Summary",
                                     "description": "",
                                     "required": [
                                         "sensors",
                                         "summaries"
                                     ],
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Summary"
+                                    },
                                     "properties": {
                                         "sensors": {
                                             "type": "number"
@@ -440,10 +443,22 @@
                                 },
                                 "examples": {
                                     "example1": {
-                                        "value": {
-                                            "sensors": 1012,
-                                            "summaries": []
-                                        }
+                                        "value": [
+                                            {
+                                                "sensors": 92,
+                                                "summary": [
+                                                    {},
+                                                    {}
+                                                ]
+                                            },
+                                            {
+                                                "sensors": 45,
+                                                "summary": [
+                                                    {},
+                                                    {}
+                                                ]
+                                            }
+                                        ]
                                     }
                                 }
                             }
@@ -465,6 +480,16 @@
                     "$ref": "#/components/parameters/proyecto",
                     "name": "proyecto",
                     "x-last-modified": 1638184990619
+                },
+                {
+                    "$ref": "#/components/parameters/fromDate",
+                    "name": "from",
+                    "x-last-modified": 1639571867490
+                },
+                {
+                    "$ref": "#/components/parameters/toDate",
+                    "name": "to",
+                    "x-last-modified": 1639571867490
                 }
             ],
             "x-last-modified": 1639487155371
@@ -837,21 +862,77 @@
                                     "example1": {
                                         "value": [
                                             {
-                                                "tag": "[containerTag]",
-                                                "nivel": 52,
-                                                "conectado": 53,
+                                                "tag": "some text",
+                                                "nivel": 65,
+                                                "conectado": 24,
                                                 "historicos": [
-                                                    {},
-                                                    {}
+                                                    {
+                                                        "codigo_vuelta": "some text",
+                                                        "estado": {
+                                                            "valor": 97,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "temperatura": {
+                                                            "valor": 37.99,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "resistencia": {
+                                                            "valor": 99,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        }
+                                                    },
+                                                    {
+                                                        "codigo_vuelta": "some text",
+                                                        "estado": {
+                                                            "valor": 15,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "temperatura": {
+                                                            "valor": 51.75,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "resistencia": {
+                                                            "valor": 65,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        }
+                                                    }
                                                 ]
                                             },
                                             {
-                                                "tag": "[containerTag]",
-                                                "nivel": 21,
-                                                "conectado": 80,
+                                                "tag": "some text",
+                                                "nivel": 7,
+                                                "conectado": 60,
                                                 "historicos": [
-                                                    {},
-                                                    {}
+                                                    {
+                                                        "codigo_vuelta": "some text",
+                                                        "estado": {
+                                                            "valor": 81,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "temperatura": {
+                                                            "valor": 39.04,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "resistencia": {
+                                                            "valor": 25,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        }
+                                                    },
+                                                    {
+                                                        "codigo_vuelta": "some text",
+                                                        "estado": {
+                                                            "valor": 92,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "temperatura": {
+                                                            "valor": 96.44,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "resistencia": {
+                                                            "valor": 11,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        }
+                                                    }
                                                 ]
                                             }
                                         ]
@@ -882,6 +963,16 @@
                     "$ref": "#/components/parameters/ambiTag",
                     "name": "containerOrSilo",
                     "x-last-modified": 1639571897605
+                },
+                {
+                    "$ref": "#/components/parameters/fromDate",
+                    "name": "from",
+                    "x-last-modified": 1639571867490
+                },
+                {
+                    "$ref": "#/components/parameters/toDate",
+                    "name": "to",
+                    "x-last-modified": 1639571867490
                 }
             ],
             "x-last-modified": 1639571659029
@@ -901,10 +992,20 @@
                                 "examples": {
                                     "example1": {
                                         "value": {
-                                            "sensors": 11,
+                                            "sensors": 1012,
                                             "summary": [
-                                                {},
-                                                {}
+                                                {
+                                                    "estado": 983043,
+                                                    "cantidad": 368
+                                                },
+                                                {
+                                                    "estado": 524288,
+                                                    "cantidad": 460
+                                                },
+                                                {
+                                                    "estado": 524352,
+                                                    "cantidad": 184
+                                                }
                                             ]
                                         }
                                     }
@@ -934,6 +1035,16 @@
                     "$ref": "#/components/parameters/ambiTag",
                     "name": "containerOrSilo",
                     "x-last-modified": 1639571931774
+                },
+                {
+                    "$ref": "#/components/parameters/fromDate",
+                    "name": "from",
+                    "x-last-modified": 1639571867490
+                },
+                {
+                    "$ref": "#/components/parameters/toDate",
+                    "name": "to",
+                    "x-last-modified": 1639571867490
                 }
             ],
             "x-last-modified": 1639571836662
@@ -1005,38 +1116,6 @@
                 "tags": [
                     "Facility Operations"
                 ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Historics"
-                                },
-                                "examples": {
-                                    "example1": {
-                                        "value": {
-                                            "tag": "[Cable Tag]",
-                                            "nivel": 10,
-                                            "conectado": 78,
-                                            "historicos": [
-                                                {
-                                                    "tag": "Sensor Tag"
-                                                },
-                                                {
-                                                    "tag": "Sensor Tag"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Successful operation."
-                    }
-                },
-                "operationId": "getSiloCableHistorics",
-                "summary": "Get historics of a cable in a silo.",
-                "description": "Shows an object that contains the tag of a particular cable inside a silo, and an array with all the sensors within it.",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/proyecto",
@@ -1053,7 +1132,48 @@
                         "name": "cable",
                         "x-last-modified": 1639571867490
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Historics"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "tag": "{Sensor tag}",
+                                            "nivel": 1,
+                                            "conectado": 1,
+                                            "historicos": [
+                                                {
+                                                    "codigo_vuelta": "[Return code]",
+                                                    "estado": {
+                                                        "valor": 524288,
+                                                        "fecha_hora": "[Date and time]"
+                                                    },
+                                                    "temperatura": {
+                                                        "valor": 26.4,
+                                                        "fecha_hora": "[Date and time]"
+                                                    },
+                                                    "resistencia": {
+                                                        "valor": 206,
+                                                        "fecha_hora": "[Date and time]"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful operation."
+                    }
+                },
+                "operationId": "getSiloCableHistorics",
+                "summary": "Get historics of a cable in a silo.",
+                "description": "Shows an object that contains the tag of a particular cable inside a silo, and an array with all the sensors within it."
             }
         },
         "/api/facilities/{proyecto}/{silo}/{cable}/{sensor}/historics": {
@@ -1061,31 +1181,6 @@
                 "tags": [
                     "Facility Operations"
                 ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Sensor"
-                                },
-                                "examples": {
-                                    "example1": {
-                                        "value": {
-                                            "tag": "[Sensor Tag]",
-                                            "nivel": 2,
-                                            "conectado": 1,
-                                            "historicos": []
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Succesful operation."
-                    }
-                },
-                "operationId": "getSiloCableSensorHistorics",
-                "summary": "Get historics of a sensor in a silo",
-                "description": "Get an object that contains the historics of a particular sensor of a cable in a silo inside a particular facility.",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/proyecto",
@@ -1106,14 +1201,107 @@
                         "$ref": "#/components/parameters/sensorTag",
                         "name": "sensor",
                         "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/fromDate",
+                        "name": "from",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/toDate",
+                        "name": "to",
+                        "x-last-modified": 1639571867490
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Historics"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "tag": "some text",
+                                            "nivel": 64,
+                                            "conectado": 24,
+                                            "historicos": [
+                                                {
+                                                    "codigo_vuelta": "some text",
+                                                    "estado": {
+                                                        "valor": 35,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "temperatura": {
+                                                        "valor": 29.32,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "resistencia": {
+                                                        "valor": 40,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    }
+                                                },
+                                                {
+                                                    "codigo_vuelta": "some text",
+                                                    "estado": {
+                                                        "valor": 72,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "temperatura": {
+                                                        "valor": 80.4,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "resistencia": {
+                                                        "valor": 54,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Succesful operation."
+                    }
+                },
+                "operationId": "getSiloCableSensorHistorics",
+                "summary": "Get historics of a sensor in a silo",
+                "description": "Get an object that contains the historics of a particular sensor of a cable in a silo inside a particular facility."
             }
         },
         "/api/facilities/{proyecto}/{container}/{truss}/cables": {
             "get": {
                 "tags": [
                     "Facility Operations"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/proyecto",
+                        "name": "proyecto",
+                        "x-last-modified": 1639571855005
+                    },
+                    {
+                        "$ref": "#/components/parameters/containerTag",
+                        "name": "container",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/trussTag",
+                        "name": "truss",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/fromDate",
+                        "name": "from",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/toDate",
+                        "name": "to",
+                        "x-last-modified": 1639571867490
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1146,7 +1334,14 @@
                 },
                 "operationId": "getTrussCables",
                 "summary": "Get cables of a truss",
-                "description": "Get an array of cable objects inside a particular truss in a container.",
+                "description": "Get an array of cable objects inside a particular truss in a container."
+            }
+        },
+        "/api/facilities/{proyecto}/{container}/{truss}/historics": {
+            "get": {
+                "tags": [
+                    "Facility Operations"
+                ],
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/proyecto",
@@ -1162,14 +1357,17 @@
                         "$ref": "#/components/parameters/trussTag",
                         "name": "truss",
                         "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/fromDate",
+                        "name": "from",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/toDate",
+                        "name": "to",
+                        "x-last-modified": 1639571867490
                     }
-                ]
-            }
-        },
-        "/api/facilities/{proyecto}/{container}/{truss}/historics": {
-            "get": {
-                "tags": [
-                    "Facility Operations"
                 ],
                 "responses": {
                     "200": {
@@ -1178,28 +1376,84 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Sensor"
+                                        "$ref": "#/components/schemas/Historics"
                                     }
                                 },
                                 "examples": {
                                     "example1": {
                                         "value": [
                                             {
-                                                "tag": "[Sensor Tag]",
-                                                "nivel": 98,
-                                                "conectado": 21,
+                                                "tag": "some text",
+                                                "nivel": 86,
+                                                "conectado": 8,
                                                 "historicos": [
-                                                    {},
-                                                    {}
+                                                    {
+                                                        "codigo_vuelta": "some text",
+                                                        "estado": {
+                                                            "valor": 80,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "temperatura": {
+                                                            "valor": 53.78,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "resistencia": {
+                                                            "valor": 65,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        }
+                                                    },
+                                                    {
+                                                        "codigo_vuelta": "some text",
+                                                        "estado": {
+                                                            "valor": 75,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "temperatura": {
+                                                            "valor": 15.42,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "resistencia": {
+                                                            "valor": 80,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        }
+                                                    }
                                                 ]
                                             },
                                             {
-                                                "tag": "[Sensor Tag]",
-                                                "nivel": 77,
-                                                "conectado": 64,
+                                                "tag": "some text",
+                                                "nivel": 15,
+                                                "conectado": 82,
                                                 "historicos": [
-                                                    {},
-                                                    {}
+                                                    {
+                                                        "codigo_vuelta": "some text",
+                                                        "estado": {
+                                                            "valor": 12,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "temperatura": {
+                                                            "valor": 0.61,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "resistencia": {
+                                                            "valor": 47,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        }
+                                                    },
+                                                    {
+                                                        "codigo_vuelta": "some text",
+                                                        "estado": {
+                                                            "valor": 77,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "temperatura": {
+                                                            "valor": 36.49,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        },
+                                                        "resistencia": {
+                                                            "valor": 42,
+                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                        }
+                                                    }
                                                 ]
                                             }
                                         ]
@@ -1212,24 +1466,7 @@
                 },
                 "operationId": "getTrussHistorics",
                 "summary": "Get historics of a truss.",
-                "description": "Get an object that shows an array with all the sensors within a particular truss in a container.",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/proyecto",
-                        "name": "proyecto",
-                        "x-last-modified": 1639571855005
-                    },
-                    {
-                        "$ref": "#/components/parameters/containerTag",
-                        "name": "container",
-                        "x-last-modified": 1639571867490
-                    },
-                    {
-                        "$ref": "#/components/parameters/trussTag",
-                        "name": "truss",
-                        "x-last-modified": 1639571867490
-                    }
-                ]
+                "description": "Get an object that shows an array with all the sensors within a particular truss in a container."
             }
         },
         "/api/facilities/{proyecto}/{container}/{truss}/{cable}/historics": {
@@ -1247,12 +1484,40 @@
                                 "examples": {
                                     "example1": {
                                         "value": {
-                                            "tag": "[Cable Tag]",
-                                            "nivel": 14,
-                                            "conectado": 89,
+                                            "tag": "some text",
+                                            "nivel": 77,
+                                            "conectado": 1,
                                             "historicos": [
-                                                {},
-                                                {}
+                                                {
+                                                    "codigo_vuelta": "some text",
+                                                    "estado": {
+                                                        "valor": 92,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "temperatura": {
+                                                        "valor": 76.38,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "resistencia": {
+                                                        "valor": 34,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    }
+                                                },
+                                                {
+                                                    "codigo_vuelta": "some text",
+                                                    "estado": {
+                                                        "valor": 98,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "temperatura": {
+                                                        "valor": 8.64,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "resistencia": {
+                                                        "valor": 86,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    }
+                                                }
                                             ]
                                         }
                                     }
@@ -1286,6 +1551,16 @@
                     "$ref": "#/components/parameters/cableTag",
                     "name": "cable",
                     "x-last-modified": 1639571867490
+                },
+                {
+                    "$ref": "#/components/parameters/fromDate",
+                    "name": "from",
+                    "x-last-modified": 1639571867490
+                },
+                {
+                    "$ref": "#/components/parameters/toDate",
+                    "name": "to",
+                    "x-last-modified": 1639571867490
                 }
             ]
         },
@@ -1294,31 +1569,6 @@
                 "tags": [
                     "Facility Operations"
                 ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Sensor"
-                                },
-                                "examples": {
-                                    "example1": {
-                                        "value": {
-                                            "tag": "[Sensor Tag]",
-                                            "nivel": 3,
-                                            "conectado": 2,
-                                            "historicos": []
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Succesful operation."
-                    }
-                },
-                "operationId": "getTrussCableSensorHistorics",
-                "summary": "Get historics of a sensor in a truss",
-                "description": "Get an object that contains the historics of a particular sensor of a cable in a truss belonging to a container inside a facility.",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/proyecto",
@@ -1344,9 +1594,74 @@
                         "$ref": "#/components/parameters/sensorTag",
                         "name": "sensor",
                         "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/fromDate",
+                        "name": "from",
+                        "x-last-modified": 1639571867490
+                    },
+                    {
+                        "$ref": "#/components/parameters/toDate",
+                        "name": "to",
+                        "x-last-modified": 1639571867490
                     }
-
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Historics"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "tag": "some text",
+                                            "nivel": 37,
+                                            "conectado": 80,
+                                            "historicos": [
+                                                {
+                                                    "codigo_vuelta": "some text",
+                                                    "estado": {
+                                                        "valor": 62,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "temperatura": {
+                                                        "valor": 94.26,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "resistencia": {
+                                                        "valor": 94,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    }
+                                                },
+                                                {
+                                                    "codigo_vuelta": "some text",
+                                                    "estado": {
+                                                        "valor": 87,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "temperatura": {
+                                                        "valor": 96.62,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    },
+                                                    "resistencia": {
+                                                        "valor": 95,
+                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Succesful operation."
+                    }
+                },
+                "operationId": "getTrussCableSensorHistorics",
+                "summary": "Get historics of a sensor in a truss",
+                "description": "Get an object that contains the historics of a particular sensor of a cable in a truss belonging to a container inside a facility."
             }
         }
     },
@@ -1796,14 +2111,32 @@
                     },
                     "historicos": {
                         "type": "array",
-                        "items": {}
+                        "items": {
+                            "$ref": "#/components/schemas/Historicos"
+                        }
                     }
                 },
                 "example": {
                     "tag": "G001K001C001N001",
                     "nivel": 1,
                     "conectado": 1,
-                    "historicos": []
+                    "historicos": [
+                        {
+                            "codigo_vuelta": "GOQ2YIR6M6JTF8ER-S001C001",
+                            "estado": {
+                                "valor": 524288,
+                                "fecha_hora": "2021-12-20 10:10:07"
+                            },
+                            "temperatura": {
+                                "valor": 26.4,
+                                "fecha_hora": "2021-12-20 10:10:07"
+                            },
+                            "resistencia": {
+                                "valor": 206,
+                                "fecha_hora": "2021-12-20 10:10:07"
+                            }
+                        }
+                    ]
                 }
             },
             "Summary": {
@@ -1822,7 +2155,20 @@
                 },
                 "example": {
                     "sensors": 1012,
-                    "summary": []
+                    "summary": [
+                        {
+                            "estado": 983043,
+                            "cantidad": 368
+                        },
+                        {
+                            "estado": 524288,
+                            "cantidad": 460
+                        },
+                        {
+                            "estado": 524352,
+                            "cantidad": 184
+                        }
+                    ]
                 }
             },
             "Authenticated": {
@@ -2001,37 +2347,87 @@
                     "email": "[newEmail]"
                 }
             },
-            "Sensor": {
-                "title": "Root Type for Sensor",
+            "Historicos": {
+                "title": "Root Type for Historicos",
                 "description": "",
                 "type": "object",
                 "properties": {
-                    "tag": {
+                    "codigo_vuelta": {
                         "type": "string"
                     },
-                    "nivel": {
-                        "format": "int32",
-                        "type": "integer"
+                    "estado": {
+                        "type": "object",
+                        "properties": {
+                            "valor": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "fecha_hora": {
+                                "format": "date-time",
+                                "type": "string"
+                            }
+                        }
                     },
-                    "conectado": {
-                        "format": "int32",
-                        "type": "integer"
+                    "temperatura": {
+                        "type": "object",
+                        "properties": {
+                            "valor": {
+                                "format": "double",
+                                "type": "number"
+                            },
+                            "fecha_hora": {
+                                "format": "date-time",
+                                "type": "string"
+                            }
+                        }
                     },
-                    "historicos": {
-                        "type": "array",
-                        "items": {}
+                    "resistencia": {
+                        "type": "object",
+                        "properties": {
+                            "valor": {
+                                "format": "int32",
+                                "type": "integer"
+                            },
+                            "fecha_hora": {
+                                "format": "date-time",
+                                "type": "string"
+                            }
+                        }
                     }
                 },
                 "example": {
-                    "tag": "S001C002N002",
-                    "nivel": 2,
-                    "conectado": 1,
-                    "historicos": []
+                    "codigo_vuelta": "DPKHAN9JOKTQA5GW-S001C002",
+                    "estado": {
+                        "valor": 524288,
+                        "fecha_hora": "2021-12-20 10:10:07"
+                    },
+                    "temperatura": {
+                        "valor": 26.4,
+                        "fecha_hora": "2021-12-20 10:10:07"
+                    },
+                    "resistencia": {
+                        "valor": 206,
+                        "fecha_hora": "2021-12-20 10:10:07"
+                    }
                 }
             }
         },
         "responses": {
             "400": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Authenticated"
+                        },
+                        "examples": {
+                            "example1": {
+                                "value": {
+                                    "error": "Already authenticated."
+                                }
+                            }
+                        }
+                    }
+                },
                 "description": "Already Authenticated"
             },
             "401": {
@@ -2115,7 +2511,6 @@
                 "required": true,
                 "x-last-modified": 1639488925114
             },
-            
             "siloTag": {
                 "deprecated": false,
                 "examples": {
@@ -2187,6 +2582,36 @@
                 "in": "path",
                 "required": true,
                 "x-last-modified": 1639488925114
+            },
+            "fromDate": {
+                "examples": {
+                    "example1": {
+                        "value": "\"2018-02-10T09:30Z\""
+                    }
+                },
+                "name": "from",
+                "description": "Starting date to collect the data from.",
+                "schema": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "in": "query",
+                "required": true
+            },
+            "toDate": {
+                "examples": {
+                    "example1": {
+                        "value": "\"2018-02-10T09:30Z\""
+                    }
+                },
+                "name": "to",
+                "description": "Ending date to collect the data from.",
+                "schema": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "in": "query",
+                "required": true
             }
         },
         "securitySchemes": {

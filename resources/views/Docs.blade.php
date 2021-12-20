@@ -15,6 +15,7 @@
       body {
         margin: 0;
         padding: 0;
+        
       }
     </style>
   </head>
@@ -24,6 +25,8 @@
     hide-loading
     native-scrollbars
     >
+    
+    
  
     </redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"> </script>

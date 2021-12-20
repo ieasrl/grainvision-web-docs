@@ -22,7 +22,7 @@
             height: auto;
         }
 
-        rapi-doc {
+        rapi-doc {   
             width: 100%;
         }
     </style>
@@ -35,7 +35,7 @@
 
 
 
-        <rapi-doc spec-url="/docs" show-header='false' render-style="focused" regular-font="Nunito" style="read"
+        <rapi-doc spec-url= "./adminGV.json" show-header='false' render-style="focused" regular-font="Nunito" style="read"
         allow-server-selection="false">
         
         <a slot="nav-logo" href="#overview">
