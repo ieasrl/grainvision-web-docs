@@ -3,7 +3,7 @@
     "info": {
         "title": "Grainvision API",
         "version": "1.0.0",
-        "description": "# Documentation\nThis is the documentation page for **Grainvision Web**. Created to provide a better understanding of how to use this app and build a better overall user experience. It contains all relevant paths and operations with important data, including their parameters, responses, and possible errors. \n\nThe API can be divided into three main groups of endpoints:\n\n\n### * **Facility Operations**\n\nIt consists of all the operations used to view, store, update and delete facilities, and all the pieces that compose them. It's the main characteristic of Grainvision Web and the one that is most deeply explained in this documentation page.\n\n### * **Authentication Operations**\n\nThese are the operations which primary purpose is to authenticate the user to give them access into the application. Without authentication the user cannot operate with the API.\n\n### * **Settings and Profile Operations**\n\nThis group is useful for configuration purposes, managing the user's profile and its information.\n",
+        "description": "# Documentation\nThis is the documentation page for **Grainvision Web**. Created to provide a better understanding of how to use this app and build a better overall user experience. It contains all relevant paths and operations with important data, including their parameters, responses, and possible errors. \n\nThe API can be divided into three main groups of endpoints:\n\n\n### * **Facility Operations**\n\nIt consists of all the operations used to view, store, update and delete facilities, and all the pieces that compose them. It's the main characteristic of Grainvision Web and the one that is most deeply explained in this documentation page.\n\n### * **Authentication Operations**\n\nThese are the operations which primary purpose is to authenticate the user to give them access into the application. Without authentication the user cannot operate with the API.\n\n### * **Settings and Profile Operations**\n\nThis group is useful for configuration purposes, managing the user's profile and its information.\n\n\n\n\n-----\n\n\n\n# Return codes for historics\n\nThe historics routes return a code, which is converted to binary and interpreted as a bit. Each bit has a different meaning, which determines the state of the overal state of the sensor. Here's a list with all the possible codes, their meanings, and a summary of their graphical representation on Grainvision:\n\n\n|   Bit  |                            Color                                  |             Meaning            |\n| ------ | ----------------------------------------------------------------- | ------------------------------ |\n| 00    | White over black background, bold                                 | Lack of response               |\n| 01    | White over black background, bold                                 | Can't connect to the port      | \n| 02     | Dark gray over light gray background, bold                        | Open sensor                    |\n| 03     | Dark gray over light gray background, bold                        | Input overrange                |\n| 04     | Dark gray over light gray background, bold                        | Cold joint                     |\n| 05     | Dark gray over light gray background, bold                        | Unknown error                  |\n| 06     | White over red background, bold, biggest font                     | MaxMax (35 °C x 48hs)          |\n| 07     | Red over white background, bold, biggest font                     | Max (30 °C )                   |\n| 08     | White over blue background, bold, biggest font                    | MinMin                         |\n| 09     | Blue over white background, bold, biggest font                    | Min                            |\n| 10     | Black over yellow background, bold, biggest font                  | Derivative                     |\n| 11     | Yellow over red background, bold, biggest font, with astericks    | MaxMaxMax(40 °C x 48hs)         |\n| 15     | First color, depending on the alarm                               | Known alarms                   |\n| 16     | Blank square                                                      | No temperature readings           |\n| 17     | N/A                                                               | No resistance readings            |\n| 18     | Light green over white background, no border                      | Sensor on open air             |\n| 19     | Color and border depending on other alarms and conditions         | Automatic air/grain detection  |\n| 20     | Mild gray over light gray, between < y >                          | Disabled sensor alarms         |\n\n\n",
         "contact": {
             "name": "IEA",
             "email": "email@iea.com"
@@ -15,7 +15,6 @@
     "servers": [
         {
             "url": "http://grainvision.local/",
-            "description": "",
             "x-last-modified": 1639058782538
         }
     ],
@@ -862,75 +861,75 @@
                                     "example1": {
                                         "value": [
                                             {
-                                                "tag": "some text",
+                                                "tag": "[Container tag]",
                                                 "nivel": 65,
                                                 "conectado": 24,
                                                 "historicos": [
                                                     {
-                                                        "codigo_vuelta": "some text",
+                                                        "codigo_vuelta": "[Return code]",
                                                         "estado": {
                                                             "valor": 97,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "temperatura": {
                                                             "valor": 37.99,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "resistencia": {
                                                             "valor": 99,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         }
                                                     },
                                                     {
-                                                        "codigo_vuelta": "some text",
+                                                        "codigo_vuelta": "[Return code]",
                                                         "estado": {
                                                             "valor": 15,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "temperatura": {
                                                             "valor": 51.75,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "resistencia": {
                                                             "valor": 65,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         }
                                                     }
                                                 ]
                                             },
                                             {
-                                                "tag": "some text",
+                                                "tag": "[Container tag]",
                                                 "nivel": 7,
                                                 "conectado": 60,
                                                 "historicos": [
                                                     {
-                                                        "codigo_vuelta": "some text",
+                                                        "codigo_vuelta": "[Return code]",
                                                         "estado": {
                                                             "valor": 81,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "temperatura": {
                                                             "valor": 39.04,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "resistencia": {
                                                             "valor": 25,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         }
                                                     },
                                                     {
-                                                        "codigo_vuelta": "some text",
+                                                        "codigo_vuelta": "[Return code]",
                                                         "estado": {
                                                             "valor": 92,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "temperatura": {
                                                             "valor": 96.44,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "resistencia": {
                                                             "valor": 11,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         }
                                                     }
                                                 ]
@@ -1143,7 +1142,7 @@
                                 "examples": {
                                     "example1": {
                                         "value": {
-                                            "tag": "{Sensor tag}",
+                                            "tag": "[Sensor tag]",
                                             "nivel": 1,
                                             "conectado": 1,
                                             "historicos": [
@@ -1223,38 +1222,38 @@
                                 "examples": {
                                     "example1": {
                                         "value": {
-                                            "tag": "some text",
+                                            "tag": "[Sensor tag]",
                                             "nivel": 64,
                                             "conectado": 24,
                                             "historicos": [
                                                 {
-                                                    "codigo_vuelta": "some text",
+                                                    "codigo_vuelta": "[Return code]",
                                                     "estado": {
                                                         "valor": 35,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "temperatura": {
                                                         "valor": 29.32,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "resistencia": {
                                                         "valor": 40,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     }
                                                 },
                                                 {
-                                                    "codigo_vuelta": "some text",
+                                                    "codigo_vuelta": "[Return code]",
                                                     "estado": {
                                                         "valor": 72,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "temperatura": {
                                                         "valor": 80.4,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "resistencia": {
                                                         "valor": 54,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     }
                                                 }
                                             ]
@@ -1383,75 +1382,75 @@
                                     "example1": {
                                         "value": [
                                             {
-                                                "tag": "some text",
+                                                "tag": "[Truss tag]",
                                                 "nivel": 86,
                                                 "conectado": 8,
                                                 "historicos": [
                                                     {
-                                                        "codigo_vuelta": "some text",
+                                                        "codigo_vuelta": "[Return code]",
                                                         "estado": {
                                                             "valor": 80,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "temperatura": {
                                                             "valor": 53.78,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "resistencia": {
                                                             "valor": 65,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         }
                                                     },
                                                     {
-                                                        "codigo_vuelta": "some text",
+                                                        "codigo_vuelta": "[Return code]",
                                                         "estado": {
                                                             "valor": 75,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "temperatura": {
                                                             "valor": 15.42,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "resistencia": {
                                                             "valor": 80,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         }
                                                     }
                                                 ]
                                             },
                                             {
-                                                "tag": "some text",
+                                                "tag": "[Truss tag]",
                                                 "nivel": 15,
                                                 "conectado": 82,
                                                 "historicos": [
                                                     {
-                                                        "codigo_vuelta": "some text",
+                                                        "codigo_vuelta": "[Return code]",
                                                         "estado": {
                                                             "valor": 12,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "temperatura": {
                                                             "valor": 0.61,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "resistencia": {
                                                             "valor": 47,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         }
                                                     },
                                                     {
-                                                        "codigo_vuelta": "some text",
+                                                        "codigo_vuelta": "[Return code]",
                                                         "estado": {
                                                             "valor": 77,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "temperatura": {
                                                             "valor": 36.49,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         },
                                                         "resistencia": {
                                                             "valor": 42,
-                                                            "fecha_hora": "2018-02-10T09:30Z"
+                                                            "fecha_hora": "[Date time]"
                                                         }
                                                     }
                                                 ]
@@ -1484,38 +1483,38 @@
                                 "examples": {
                                     "example1": {
                                         "value": {
-                                            "tag": "some text",
+                                            "tag": "[Cable tag]",
                                             "nivel": 77,
                                             "conectado": 1,
                                             "historicos": [
                                                 {
-                                                    "codigo_vuelta": "some text",
+                                                    "codigo_vuelta": "[Return code]",
                                                     "estado": {
                                                         "valor": 92,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "temperatura": {
                                                         "valor": 76.38,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "resistencia": {
                                                         "valor": 34,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     }
                                                 },
                                                 {
-                                                    "codigo_vuelta": "some text",
+                                                    "codigo_vuelta": "[Return code]",
                                                     "estado": {
                                                         "valor": 98,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "temperatura": {
                                                         "valor": 8.64,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "resistencia": {
                                                         "valor": 86,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     }
                                                 }
                                             ]
@@ -1616,38 +1615,38 @@
                                 "examples": {
                                     "example1": {
                                         "value": {
-                                            "tag": "some text",
+                                            "tag": "[Sensor tag]",
                                             "nivel": 37,
                                             "conectado": 80,
                                             "historicos": [
                                                 {
-                                                    "codigo_vuelta": "some text",
+                                                    "codigo_vuelta": "[Return code]",
                                                     "estado": {
                                                         "valor": 62,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "temperatura": {
                                                         "valor": 94.26,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "resistencia": {
                                                         "valor": 94,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     }
                                                 },
                                                 {
-                                                    "codigo_vuelta": "some text",
+                                                    "codigo_vuelta": "[Return code]",
                                                     "estado": {
                                                         "valor": 87,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "temperatura": {
                                                         "valor": 96.62,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     },
                                                     "resistencia": {
                                                         "valor": 95,
-                                                        "fecha_hora": "2018-02-10T09:30Z"
+                                                        "fecha_hora": "[Date time]"
                                                     }
                                                 }
                                             ]

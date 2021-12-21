@@ -24,10 +24,8 @@
     hide-download-button
     hide-loading
     native-scrollbars
+    expand-responses="200"
     >
-    
-    
- 
     </redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"> </script>
   </body>
